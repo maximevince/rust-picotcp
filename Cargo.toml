@@ -1,0 +1,9 @@
+[project]
+name = "picotcp"
+version = "0.0.1"
+authors = [ "Maxime Vincent <maxime.vince@gmail.com>" ]
+
+[lib]
+name = "picotcp"
+path = "src/picotcp/lib.rs"
+
