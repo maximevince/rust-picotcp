@@ -1,7 +1,7 @@
 
 
 pub fn stack_init() {
-    println!("Hello, world.");
+    println!("Hello, rust-picotcp.");
 }
 
 
