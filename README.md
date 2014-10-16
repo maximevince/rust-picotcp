@@ -5,30 +5,32 @@ NOTE: Nothing is working yet!
 
 ## Installation
 
-You can install `rust-picotcp` with `rustpkg`:
+You don't have to install `rust-picotcp`,
+but rather add it to your Cargo.toml as a dependency:
 
 ```
-$ rustpkg install github.com/maximevince/rust-picotcp
+[dependencies.picotcp]
+git = "https://github.com/maximevince/rust-picotcp.git"
 ```
 
 
 ## Usage
 
-Here's a sample program using hello:
+Here's a sample program using rust-picotcp:
 
 ```
-extern mod picotcp;
+extern crate picotcp;
 
 fn main() {
-  picotcp::stack_init();
+    picotcp::stack_init();
 }
 ```
 
-If you put that into a file called `picotest.rs`, you can:
+If you put that into a file called `src/picotest.rs`, and add a corresponding Cargo.toml file, you can:
 
 ```
-$ rustc picotest.rs
-$ ./picotest
+$ cargo build
+$ ./target/picotest
 ```
 
 ## License
