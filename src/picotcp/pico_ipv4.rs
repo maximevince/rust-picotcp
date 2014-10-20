@@ -11,7 +11,8 @@ pub struct pico_ip4 {
     pub addr: u32,
 }
 
-#[link(name = "picotcp", kind="static")]
+//#[link(name = "picotcp", kind="static")]
+#[link(name = "picotcp")]
 extern "C" {
     pub fn pico_ipv4_link_add(dev: *mut pico_device,
                               address: pico_ip4,

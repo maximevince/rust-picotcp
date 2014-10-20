@@ -83,7 +83,8 @@ pub struct pico_frame {
  * FOREIGN FUNCTION INTERFACE
  */
 
-#[link(name = "picotcp", kind="static")]
+//#[link(name = "picotcp", kind="static")]
+#[link(name = "picotcp")]
 extern "C" {
     /* ----- Initialization ----- */
     pub fn pico_stack_init() -> c_int;
