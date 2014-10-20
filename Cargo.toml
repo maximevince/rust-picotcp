@@ -2,6 +2,7 @@
 name = "picotcp"
 version = "0.0.1"
 authors = [ "Maxime Vincent <maxime.vince@gmail.com>" ]
+build = "cp libpicotcp.a $OUT_DIR"
 
 [lib]
 name = "picotcp"

@@ -6,7 +6,7 @@ NOTE: Nothing is working yet!
 ## Installation
 
 You don't have to install `rust-picotcp`,
-but rather add it to your Cargo.toml as a dependency:
+but rather add it to your `Cargo.toml` as a dependency:
 
 ```
 [dependencies.picotcp]
@@ -26,7 +26,7 @@ fn main() {
 }
 ```
 
-If you put that into a file called `src/picotest.rs`, and add a corresponding Cargo.toml file, you can:
+If you put that into a file called `src/picotest.rs`, and add a corresponding `Cargo.toml` file, you can:
 
 ```
 $ cargo build
