@@ -23,6 +23,21 @@ impl fmt::Show for pico_ip4 {
     }
 }
 
+impl pico_ip4 { 
+    fn new(address: &str) -> pico_ip4 {
+        let mut addr_u:u32  = 0;
+        let v: Vec<&str> = address.as_slice().split('.').collect();
+        let mut i:uint = 0;
+        for &byte in v.iter() {
+            let u:Option<u32> = from_str(byte);
+            let sum = u.unwrap() << i;
+            addr_u += sum;
+            i+=1;
+        }
+        pico_ip4 { addr: addr_u}
+    }
+}
+
 //#[link(name = "picotcp", kind="static")]
 #[link(name = "picotcp")]
 extern "C" {
