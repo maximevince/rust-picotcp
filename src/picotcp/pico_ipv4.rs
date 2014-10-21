@@ -8,6 +8,7 @@ use std::fmt;
 use pico_stack::*;
 
 #[packed]
+#[repr(C)]
 pub struct pico_ip4 {
     pub addr: u32,
 }
