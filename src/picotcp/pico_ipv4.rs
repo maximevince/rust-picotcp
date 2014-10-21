@@ -6,9 +6,20 @@ use libc::{c_int, c_char};
 
 use pico_stack::*;
 
-#[repr(C)]
+#[packed]
 pub struct pico_ip4 {
     pub addr: u32,
+}
+
+impl fmt::Show for picotcp::pico_ipv4::pico_ip4 {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let addr = self.addr.to_be();
+        let a = (addr >> 24) & 0xFF;
+        let b = (addr >> 16) & 0xFF;
+        let c = (addr >> 8) & 0xFF;
+        let d = (addr) & 0xFF;
+        write!(f, " {}.{}.{}.{}", a,b,c,d)
+    }
 }
 
 //#[link(name = "picotcp", kind="static")]
