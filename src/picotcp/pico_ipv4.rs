@@ -3,6 +3,7 @@
 extern crate libc;
 
 use libc::{c_int, c_char};
+use std::fmt;
 
 use pico_stack::*;
 
