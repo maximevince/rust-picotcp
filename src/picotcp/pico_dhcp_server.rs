@@ -17,9 +17,9 @@ pub struct pico_dhcp_opt {
 
 #[repr(C)]
 pub struct pico_dhcp_server_setting {
-    pub pool_start: uint32_t,
-    pub pool_next: uint32_t,
-    pub pool_end: uint32_t,
+    pub pool_start: pico_ip4,
+    pub pool_next: pico_ip4,
+    pub pool_end: pico_ip4,
     pub lease_time: uint32_t,
     pub dev: *mut pico_device,
     pub s: *mut pico_socket,
