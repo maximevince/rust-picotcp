@@ -32,7 +32,7 @@ impl pico_ip4 {
             let u:Option<u32> = from_str(byte);
             let sum = u.unwrap() << i;
             addr_u += sum;
-            i+=1;
+            i+=8;
         }
         pico_ip4 { addr: addr_u}
     }
