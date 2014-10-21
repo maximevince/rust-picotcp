@@ -3,6 +3,8 @@
 extern crate libc;
 
 use libc::{c_int, c_uchar, c_void, uint8_t, int8_t, uint16_t, uint32_t, uint64_t};
+use std::io::timer;
+use std::time::Duration;
 
 /* 
  * TYPE and STRUCT declarations
@@ -104,8 +106,15 @@ pub fn stack_init() -> int {
     unsafe { pico_stack_init() as int }
 }
 
-pub fn stack_tick() {
+fn stack_tick() {
     unsafe { pico_stack_tick(); }
+}
+
+pub fn stack_loop() {
+    loop {
+        stack_tick();
+        timer::sleep(Duration::milliseconds(1));
+    }
 }
 
 /*
