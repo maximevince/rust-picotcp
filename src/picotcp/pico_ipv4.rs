@@ -24,7 +24,7 @@ impl fmt::Show for pico_ip4 {
 }
 
 impl pico_ip4 { 
-    fn new(address: &str) -> pico_ip4 {
+    pub fn new(address: &str) -> pico_ip4 {
         let mut addr_u:u32  = 0;
         let v: Vec<&str> = address.as_slice().split('.').collect();
         let mut i:uint = 0;
