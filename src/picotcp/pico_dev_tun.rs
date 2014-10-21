@@ -17,9 +17,9 @@ extern "C" {
 }
 
 
-pub fn tun_create(name: str) -> *mut pico_device
+pub fn tun_create(name: &str) -> *mut pico_device
 {
-    unsafe { pico_tun_create(name.to_c_str()) as *mut pico_device }
+    unsafe { pico_tun_create(name.to_c_str().unwrap()) as *mut pico_device }
 }
 
 pub fn tun_destroy(tun: *mut pico_device)
