@@ -12,7 +12,7 @@ pub struct pico_ip4 {
     pub addr: u32,
 }
 
-impl fmt::Show for picotcp::pico_ipv4::pico_ip4 {
+impl fmt::Show for pico_ip4 {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let addr = self.addr.to_be();
         let a = (addr >> 24) & 0xFF;
