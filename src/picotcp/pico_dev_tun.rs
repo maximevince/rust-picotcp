@@ -9,13 +9,16 @@ use pico_stack::*;
  * FOREIGN FUNCTION INTERFACE
  */
 
-//#[link(name = "picotcp", kind="static")]
 #[link(name = "picotcp")]
 extern "C" {
     pub fn pico_tun_create(name: *const c_char) -> *mut pico_device;
     pub fn pico_tun_destroy(tun: *mut pico_device);
 }
 
+
+/* 
+ * RUST FUNCTION INTERFACE
+ */
 
 pub fn tun_create(name: &str) -> *mut pico_device
 {
