@@ -27,8 +27,16 @@ impl pico_ip6 {
         let mut a: [u8, ..16] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
         for (i,&byte) in v.iter().enumerate() {
             let b:Option<u16> = from_str(byte);
-            a[ 2 * i ] = ((b.unwrap() >> 8) & 0xFF) as u8;
-            a[ 2 * i + 1] = (b.unwrap() & 0xFF) as u8;
+            match b {
+                Some(x) => {
+                    a[ 2 * i ] = ((x >> 8) & 0xFF) as u8;
+                    a[ 2 * i + 1] = (x & 0xFF) as u8;
+                }, 
+                None => {
+                    a[ 2 * i ] = 0; 
+                    a[ 2 * i + 1] = 0; 
+                }
+            }
         }
         pico_ip6 { addr: a}
     }
