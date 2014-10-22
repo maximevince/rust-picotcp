@@ -13,6 +13,8 @@ pub struct pico_ip4 {
     pub addr: u32,
 }
 
+pub static INADDR_ANY: pico_ip4 = pico_ip4{ addr: 0 };
+
 impl fmt::Show for pico_ip4 {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let addr = self.addr.to_be();

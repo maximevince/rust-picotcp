@@ -14,7 +14,9 @@ pub type pico_time = uint64_t;
 
 /* TODO: to be refined!!! */
 pub type pico_device = uint32_t;
-pub type pico_socket = uint32_t;
+
+#[repr(C)]
+pub struct pico_socket;
 
 /* FROM: pico_frame.h */
 #[repr(C)]
