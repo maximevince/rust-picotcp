@@ -15,6 +15,7 @@ extern "C" {
     pub fn pico_socket_listen(s: *mut pico_socket, backlog: c_int)->c_int; 
     pub fn pico_socket_accept(s: &pico_socket, address: *mut u8, port: *mut u16)->*mut pico_socket; 
     pub fn pico_socket_recv(s: &pico_socket, buf: *mut u8, len: c_int)->c_int;
+    pub fn pico_socket_send(s: &pico_socket, buf: &u8, len: c_int)->c_int;
 }
 
 
@@ -91,3 +92,10 @@ pub fn recv(s: &pico_socket)-> Vec<u8>
     }
 }
 
+pub fn send(s: &pico_socket, buf:Vec<u8>)->int
+{
+    unsafe {
+        let p = buf.as_ptr();
+        pico_socket_send(s, &*p , buf.len() as c_int) as int
+    }
+}
