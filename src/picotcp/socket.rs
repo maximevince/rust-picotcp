@@ -3,6 +3,7 @@
 extern crate libc;
 use pico_ipv4::*;
 use libc::{c_int};
+use std::mem;
 
 #[repr(C)]
 pub struct pico_socket;
@@ -13,6 +14,7 @@ extern "C" {
     pub fn pico_socket_bind(s: *mut pico_socket, address: *mut u8, port: *mut u16)->c_int; 
     pub fn pico_socket_listen(s: *mut pico_socket, backlog: c_int)->c_int; 
     pub fn pico_socket_accept(s: &pico_socket, address: *mut u8, port: *mut u16)->*mut pico_socket; 
+    pub fn pico_socket_recv(s: &pico_socket, buf: *mut u8, len: c_int)->c_int;
 }
 
 
@@ -41,6 +43,8 @@ pub static PICO_SOCK_EV_CLOSE:u16 = 8;
 pub static PICO_SOCK_EV_FIN:u16 = 0x10;
 #[allow(dead_code)]
 pub static PICO_SOCK_EV_ERR:u16 = 0x80;
+
+static MAXLEN:uint = 1500;
 
 /* 
  * RUST FUNCTION INTERFACE
@@ -71,3 +75,19 @@ pub fn accept(s: &pico_socket, address: *mut pico_ip4, port: *mut u16) -> *mut p
         pico_socket_accept(s, address as *mut u8, port)
     }
 }
+
+pub fn recv(s: &pico_socket)-> Vec<u8>
+{
+    unsafe {
+        let mut buf:Vec<u8> = Vec::with_capacity(MAXLEN );
+        let p = buf.as_mut_ptr();
+        mem::forget(buf); /* Cast into the void to allow raw access */
+
+        /* Recv stream/dgram */
+        let mut r = pico_socket_recv(s, p, MAXLEN as i32);
+
+        if r < 0 { r = 0;}
+        Vec::from_raw_parts(r as uint, MAXLEN , p)
+    }
+}
+
