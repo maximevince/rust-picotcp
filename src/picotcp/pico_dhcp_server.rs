@@ -22,11 +22,13 @@ pub struct pico_dhcp_server_setting {
     pub pool_end: pico_ip4,
     pub lease_time: uint32_t,
     pub dev: *mut pico_device,
-    pub s: *mut pico_socket,
+    pub s: uint32_t,
     pub server_ip: pico_ip4,
     pub netmask: pico_ip4,
     pub flags: uint8_t,
 }
+
+
 
 /* 
  * FOREIGN FUNCTION INTERFACE
