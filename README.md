@@ -1,7 +1,8 @@
 # rust-picotcp
 
 An ongoing effort to create bindings for the complete PicoTCP library
-NOTE: Nothing is working yet!
+Basic wrappers around some of the core functionality of PicoTCP have been create.
+You can now reply to IPv4 and IPv6 pings, be a dhcp server or an echo server.
 
 ## Installation
 
