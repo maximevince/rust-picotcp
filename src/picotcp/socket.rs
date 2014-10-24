@@ -3,7 +3,7 @@
 extern crate libc;
 use pico_ipv4::*;
 use libc::{c_int};
-use std::mem;
+use std::cmp;
 
 #[repr(C)]
 pub struct pico_socket;
@@ -14,7 +14,7 @@ extern "C" {
     pub fn pico_socket_bind(s: *mut pico_socket, address: *mut u8, port: *mut u16)->c_int; 
     pub fn pico_socket_listen(s: *mut pico_socket, backlog: c_int)->c_int; 
     pub fn pico_socket_accept(s: &pico_socket, address: *mut u8, port: *mut u16)->*mut pico_socket; 
-    pub fn pico_socket_recv(s: &pico_socket, buf: *mut u8, len: c_int)->c_int;
+    pub fn pico_socket_recv(s: &pico_socket, buf: *const u8, len: c_int)->c_int;
     pub fn pico_socket_send(s: &pico_socket, buf: &u8, len: c_int)->c_int;
     pub fn pico_socket_close(s: &pico_socket)->c_int;
     pub fn pico_socket_shutdown(s: &pico_socket, how: c_int)->c_int;
@@ -82,16 +82,24 @@ pub fn accept(s: &pico_socket, address: *mut pico_ip4, port: *mut u16) -> *mut p
 pub fn recv(s: &pico_socket)-> Vec<u8>
 {
     unsafe {
-        let mut buf:Vec<u8> = Vec::with_capacity(MAXLEN );
-        let p = buf.as_mut_ptr();
-        mem::forget(buf); /* Cast into the void to allow raw access */
-
+        let mut buf:Vec<u8> = Vec::with_capacity(MAXLEN);
         /* Recv stream/dgram */
-        let mut r = pico_socket_recv(s, p, MAXLEN as i32);
-
-        if r < 0 { r = 0;}
-        Vec::from_raw_parts(r as uint, MAXLEN , p)
+        let r = pico_socket_recv(s, &buf[0], buf.capacity() as i32);
+        buf.set_len(cmp::max(0, r) as uint);
+        buf
     }
+
+//    unsafe {
+//        let mut buf:Vec<u8> = Vec::with_capacity(MAXLEN );
+//        let p = buf.as_mut_ptr();
+//        mem::forget(buf); /* Cast into the void to allow raw access */
+//
+//        /* Recv stream/dgram */
+//        let mut r = pico_socket_recv(s, p, MAXLEN as i32);
+//
+//        if r < 0 { r = 0;}
+//        Vec::from_raw_parts(r as uint, MAXLEN , p)
+//    }
 }
 
 pub fn send(s: &pico_socket, buf:&[u8])->int
