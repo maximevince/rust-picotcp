@@ -2,7 +2,7 @@
 
 extern crate libc;
 
-use libc::{c_int, c_uchar, c_void, uint8_t, int8_t, uint16_t, uint32_t, uint64_t};
+use libc::{c_uint, c_int, c_uchar, c_void, uint8_t, int8_t, uint16_t, uint32_t, uint64_t};
 use std::io::timer;
 use std::time::Duration;
 
@@ -81,13 +81,44 @@ pub struct pico_frame {
     pub transport_flags_saved: uint8_t,
 }
 
+/* enum pico_err_e */ 
+pub type pico_err_t = c_uint;
+pub const PICO_ERR_NOERR: c_uint = 0;
+pub const PICO_ERR_EPERM: c_uint = 1;
+pub const PICO_ERR_ENOENT: c_uint = 2;
+pub const PICO_ERR_EINTR: c_uint = 4;
+pub const PICO_ERR_EIO: c_uint = 5;
+pub const PICO_ERR_ENXIO: c_uint = 6;
+pub const PICO_ERR_EAGAIN: c_uint = 11;
+pub const PICO_ERR_ENOMEM: c_uint = 12;
+pub const PICO_ERR_EACCESS: c_uint = 13;
+pub const PICO_ERR_EFAULT: c_uint = 14;
+pub const PICO_ERR_EBUSY: c_uint = 16;
+pub const PICO_ERR_EEXIST: c_uint = 17;
+pub const PICO_ERR_EINVAL: c_uint = 22;
+pub const PICO_ERR_ENONET: c_uint = 64;
+pub const PICO_ERR_EPROTO: c_uint = 71;
+pub const PICO_ERR_ENOPROTOOPT: c_uint = 92;
+pub const PICO_ERR_EPROTONOSUPPORT: c_uint = 93;
+pub const PICO_ERR_EOPNOTSUPP: c_uint = 95;
+pub const PICO_ERR_EADDRINUSE: c_uint = 98;
+pub const PICO_ERR_EADDRNOTAVAIL: c_uint = 99;
+pub const PICO_ERR_ENETDOWN: c_uint = 100;
+pub const PICO_ERR_ENETUNREACH: c_uint = 101;
+pub const PICO_ERR_ECONNRESET: c_uint = 104;
+pub const PICO_ERR_EISCONN: c_uint = 106;
+pub const PICO_ERR_ENOTCONN: c_uint = 107;
+pub const PICO_ERR_ESHUTDOWN: c_uint = 108;
+pub const PICO_ERR_ETIMEDOUT: c_uint = 110;
+pub const PICO_ERR_ECONNREFUSED: c_uint = 111;
+pub const PICO_ERR_EHOSTDOWN: c_uint = 112;
+pub const PICO_ERR_EHOSTUNREACH: c_uint = 113;
 
 
 /* 
  * FOREIGN FUNCTION INTERFACE
  */
 
-//#[link(name = "picotcp", kind="static")]
 #[link(name = "picotcp")]
 extern "C" {
     /* ----- Initialization ----- */

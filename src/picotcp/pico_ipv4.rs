@@ -13,6 +13,23 @@ pub struct pico_ip4 {
     pub addr: u32,
 }
 
+#[repr(C)]
+pub struct pico_ipv4_link {
+    dev: *const pico_device,
+    address: pico_ip4,
+    netmask: pico_ip4,
+    /*
+     * TODO: what to do with these conditionally compiled fields?
+     *
+    #ifdef PICO_SUPPORT_MCAST
+    struct pico_tree *MCASTGroups;
+    uint8_t mcast_compatibility;
+    uint8_t mcast_last_query_interval;
+    #endif
+    */
+}
+
+
 pub static INADDR_ANY: pico_ip4 = pico_ip4{ addr: 0 };
 
 impl fmt::Show for pico_ip4 {
