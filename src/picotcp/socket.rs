@@ -26,26 +26,26 @@ extern "C" {
  */
 
 #[allow(dead_code)]
-pub static PICO_PROTO_IPV4:u16 = 0;
+pub const PICO_PROTO_IPV4:u16 = 0;
 #[allow(dead_code)]
-pub static PICO_PROTO_IPV6:u16 = 41;
+pub const PICO_PROTO_IPV6:u16 = 41;
 #[allow(dead_code)]
-pub static PICO_PROTO_TCP:u16 = 6;
+pub const PICO_PROTO_TCP:u16 = 6;
 #[allow(dead_code)]
-pub static PICO_PROTO_UDP:u16 = 17;
+pub const PICO_PROTO_UDP:u16 = 17;
 
 #[allow(dead_code)]
-pub static PICO_SOCK_EV_RD:u16 = 1;
+pub const PICO_SOCK_EV_RD:u16 = 1;
 #[allow(dead_code)]
-pub static PICO_SOCK_EV_WR:u16 = 2;
+pub const PICO_SOCK_EV_WR:u16 = 2;
 #[allow(dead_code)]
-pub static PICO_SOCK_EV_CONN:u16 = 4;
+pub const PICO_SOCK_EV_CONN:u16 = 4;
 #[allow(dead_code)]
-pub static PICO_SOCK_EV_CLOSE:u16 = 8;
+pub const PICO_SOCK_EV_CLOSE:u16 = 8;
 #[allow(dead_code)]
-pub static PICO_SOCK_EV_FIN:u16 = 0x10;
+pub const PICO_SOCK_EV_FIN:u16 = 0x10;
 #[allow(dead_code)]
-pub static PICO_SOCK_EV_ERR:u16 = 0x80;
+pub const PICO_SOCK_EV_ERR:u16 = 0x80;
 
 static MAXLEN:uint = 1500;
 
