@@ -94,7 +94,7 @@ pub fn recv(s: &pico_socket)-> Vec<u8>
     }
 }
 
-pub fn send(s: &pico_socket, buf:Vec<u8>)->int
+pub fn send(s: &pico_socket, buf:&[u8])->int
 {
     unsafe {
         let p = buf.as_ptr();
