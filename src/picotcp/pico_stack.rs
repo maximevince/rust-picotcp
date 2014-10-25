@@ -6,6 +6,8 @@ use libc::{c_uint, c_int, c_uchar, c_void, uint8_t, int8_t, uint16_t, uint32_t, 
 use std::io::timer;
 use std::time::Duration;
 
+pub struct stack;
+
 /* 
  * TYPE and STRUCT declarations
  */
@@ -135,18 +137,28 @@ extern "C" {
 
 }
 
-pub fn stack_init() -> int {
-    unsafe { pico_stack_init() as int }
+
+
+pub fn stack_init() -> stack {
+    let n;
+    unsafe { n = pico_stack_init(); }
+    if n < 0 {
+        fail!("PicoTCP: failed to initialize stack\n");
+    }
+    let x = stack;
+    x
 }
 
-fn stack_tick() {
-    unsafe { pico_stack_tick(); }
-}
+impl stack {
+    fn stack_tick(&self) {
+        unsafe { pico_stack_tick(); }
+    }
 
-pub fn stack_loop() {
-    loop {
-        stack_tick();
-        timer::sleep(Duration::milliseconds(1));
+    pub fn stack_loop(&self) {
+        loop {
+            self.stack_tick();
+            timer::sleep(Duration::milliseconds(1));
+        }
     }
 }
 
