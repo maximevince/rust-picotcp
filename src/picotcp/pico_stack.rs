@@ -139,17 +139,16 @@ extern "C" {
 
 
 
-pub fn stack_init() -> stack {
-    let n;
-    unsafe { n = pico_stack_init(); }
-    if n < 0 {
-        fail!("PicoTCP: failed to initialize stack\n");
-    }
-    let x = stack;
-    x
-}
-
 impl stack {
+    pub fn new() -> stack {
+        let n;
+        unsafe { n = pico_stack_init(); }
+        if n < 0 {
+            fail!("PicoTCP: failed to initialize stack\n");
+        }
+        let x = stack;
+        x
+    }
     fn stack_tick(&self) {
         unsafe { pico_stack_tick(); }
     }
