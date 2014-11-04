@@ -144,7 +144,7 @@ impl stack {
         let n;
         unsafe { n = pico_stack_init(); }
         if n < 0 {
-            fail!("PicoTCP: failed to initialize stack\n");
+            panic!("PicoTCP: failed to initialize stack\n");
         }
         let x = stack;
         x
