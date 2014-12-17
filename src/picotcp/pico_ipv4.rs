@@ -4,6 +4,7 @@ extern crate libc;
 
 use libc::{c_int};
 use std::fmt;
+use std::num::Int;
 
 use pico_stack::*;
 

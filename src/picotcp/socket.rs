@@ -4,6 +4,7 @@ extern crate libc;
 use pico_ipv4::*;
 use libc::{c_int};
 use std::cmp;
+use std::num::Int;
 
 #[repr(C)]
 pub struct pico_socket;
