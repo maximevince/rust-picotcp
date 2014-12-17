@@ -59,6 +59,12 @@ impl pico_ip4 {
     }
 }
 
+impl Clone for pico_ip4 {
+    fn clone(&self) -> pico_ip4 {
+        pico_ip4 { addr: self.addr }
+    }
+}
+
 //#[link(name = "picotcp", kind="static")]
 #[link(name = "picotcp")]
 extern "C" {

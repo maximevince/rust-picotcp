@@ -42,6 +42,12 @@ impl pico_ip6 {
     }
 }
 
+impl Clone for pico_ip6 {
+    fn clone(&self) -> pico_ip6 {
+        pico_ip6 { addr: self.addr }
+    }
+}
+
 #[link(name = "picotcp")]
 extern "C" {
     pub fn pico_ipv6_link_add(dev: *mut pico_device,
