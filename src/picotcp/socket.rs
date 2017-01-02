@@ -1,11 +1,54 @@
 #![allow(non_camel_case_types)]
+#![allow(non_snake_case)]
 
 extern crate libc;
 use pico_ipv4::*;
-use libc::c_int;
+use pico_stack::{pico_time, pico_device};
+use pico_tree::pico_tree;
+use pico_queue::pico_queue;
+use pico_addressing::pico_address;
+use pico_protocol::pico_protocol;
+use libc::{c_int, c_void, uint16_t};
 use std::cmp;
 
-pub enum pico_socket {} // TODO
+#[repr(C)]
+pub struct pico_socket {
+    pub proto: *mut pico_protocol,
+    pub net: *mut pico_protocol,
+
+    pub local_addr: pico_address,
+    pub remote_addr: pico_address,
+
+    pub local_port: uint16_t,
+    pub remote_port: uint16_t,
+
+    pub q_in: pico_queue,
+    pub q_out: pico_queue,
+
+    pub wakeup: extern fn(ev: u16, sock: &pico_socket),
+
+    /* For the TCP backlog queue */
+    pub backlog: *mut pico_socket, // TODO: #ifdef PICO_SUPPORT_TCP
+    pub next: *mut pico_socket, // TODO: #ifdef PICO_SUPPORT_TCP
+    pub parent: *mut pico_socket, // TODO: #ifdef PICO_SUPPORT_TCP
+    pub max_backlog: uint16_t, // TODO: #ifdef PICO_SUPPORT_TCP
+    pub number_of_pending_conn: uint16_t, // TODO: #ifdef PICO_SUPPORT_TCP
+
+    pub MCASTListen: *mut pico_tree, // TODO: #ifdef PICO_SUPPORT_MCAST
+
+    pub MCASTListen_ipv6: *mut pico_tree, // TODO: #ifdef PICO_SUPPORT_MCAST and #ifdef PICO_SUPPORT_IPV6
+
+    pub ev_pending: uint16_t,
+
+    pub dev: *mut pico_device,
+
+    /* Private field. */
+    id: c_int,
+    state: uint16_t,
+    opt_flags: uint16_t,
+    timestamp: pico_time,
+    priv_: *mut c_void
+}
 
 #[link(name = "picotcp")]
 extern "C" {
