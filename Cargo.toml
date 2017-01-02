@@ -7,3 +7,5 @@ authors = [ "Maxime Vincent <maxime.vince@gmail.com>" ]
 name = "picotcp"
 path = "src/picotcp/lib.rs"
 
+[dependencies]
+libc = "~0.2.18"

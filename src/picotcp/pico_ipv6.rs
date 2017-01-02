@@ -7,13 +7,13 @@ use std::fmt;
 
 use pico_stack::*;
 
-#[packed]
+#[repr(packed)]
 #[repr(C)]
 pub struct pico_ip6 {
-    pub addr: [u8, ..16]
+    pub addr: [u8; 16]
 }
 
-impl fmt::Show for pico_ip6 {
+impl fmt::Display for pico_ip6 {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let a = self.addr;
         write!(f, " {:02x}{:02x}:{:02x}{:02x}:{:02x}{:02x}:{:02x}{:02x}:{:02x}{:02x}:{:02x}{:02x}:{:02x}{:02x}:{:02x}{:02x}", 
@@ -23,16 +23,16 @@ impl fmt::Show for pico_ip6 {
 
 impl pico_ip6 { 
     pub fn new(address: &str) -> pico_ip6 {
-        let v: Vec<&str> = address.as_slice().split(':').collect();
-        let mut a: [u8, ..16] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+        let v: Vec<&str> = address.split(':').collect();
+        let mut a: [u8; 16] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
         for (i,&byte) in v.iter().enumerate() {
-            let b:Option<u16> = from_str(byte);
+            let b:Result<u16,_> = byte.parse::<u16>();
             match b {
-                Some(x) => {
+                Ok(x) => {
                     a[ 2 * i ] = ((x >> 8) & 0xFF) as u8;
                     a[ 2 * i + 1] = (x & 0xFF) as u8;
                 }, 
-                None => {
+                Err(_) => {
                     a[ 2 * i ] = 0; 
                     a[ 2 * i + 1] = 0; 
                 }

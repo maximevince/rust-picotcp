@@ -3,8 +3,10 @@
 extern crate libc;
 
 use libc::{c_uint, c_int, c_uchar, c_void, uint8_t, int8_t, uint16_t, uint32_t, uint64_t};
-use std::io::timer;
+use std::thread;
 use std::time::Duration;
+
+use socket::pico_socket;
 
 pub struct stack;
 
@@ -16,9 +18,6 @@ pub type pico_time = uint64_t;
 
 /* TODO: to be refined!!! */
 pub type pico_device = uint32_t;
-
-#[repr(C)]
-pub struct pico_socket;
 
 /* FROM: pico_frame.h */
 #[repr(C)]
@@ -156,7 +155,7 @@ impl stack {
     pub fn stack_loop(&self) {
         loop {
             self.stack_tick();
-            timer::sleep(Duration::milliseconds(1));
+            thread::sleep(Duration::from_millis(1));
         }
     }
 }

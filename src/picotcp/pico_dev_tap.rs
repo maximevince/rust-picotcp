@@ -2,6 +2,7 @@
 
 extern crate libc;
 
+use std::ffi::CString;
 use libc::{c_char};
 use pico_stack::*;
 
@@ -22,7 +23,7 @@ extern "C" {
 
 pub fn tap_create(name: &str) -> *mut pico_device
 {
-    unsafe { pico_tap_create(name.to_c_str().unwrap()) as *mut pico_device }
+    unsafe { pico_tap_create(CString::new(name).unwrap().into_raw() as *const c_char) as *mut pico_device }
 }
 
 pub fn tap_destroy(tap: *mut pico_device)

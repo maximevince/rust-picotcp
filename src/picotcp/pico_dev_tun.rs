@@ -2,6 +2,7 @@
 
 extern crate libc;
 
+use std::ffi::CString;
 use libc::{c_char};
 use pico_stack::*;
 
@@ -22,7 +23,7 @@ extern "C" {
 
 pub fn tun_create(name: &str) -> *mut pico_device
 {
-    unsafe { pico_tun_create(name.to_c_str().unwrap()) as *mut pico_device }
+    unsafe { pico_tun_create(CString::new(name).unwrap().into_raw() as *const c_char) as *mut pico_device }
 }
 
 pub fn tun_destroy(tun: *mut pico_device)
