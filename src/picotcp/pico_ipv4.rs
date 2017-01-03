@@ -4,11 +4,10 @@ extern crate libc;
 
 use libc::{c_int};
 use std::fmt;
-use std::num::Int;
 
 use pico_stack::*;
 
-#[packed]
+#[repr(packed)]
 #[repr(C)]
 pub struct pico_ip4 {
     pub addr: u32,
@@ -33,7 +32,7 @@ pub struct pico_ipv4_link {
 
 pub static INADDR_ANY: pico_ip4 = pico_ip4{ addr: 0 };
 
-impl fmt::Show for pico_ip4 {
+impl fmt::Display for pico_ip4 {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let addr = self.addr.to_be();
         let a = (addr >> 24) & 0xFF;
@@ -47,10 +46,10 @@ impl fmt::Show for pico_ip4 {
 impl pico_ip4 { 
     pub fn new(address: &str) -> pico_ip4 {
         let mut addr_u:u32  = 0;
-        let v: Vec<&str> = address.as_slice().split('.').collect();
-        let mut i:uint = 0;
+        let v: Vec<&str> = address.split('.').collect();
+        let mut i:u8 = 0;
         for &byte in v.iter() {
-            let u:Option<u32> = from_str(byte);
+            let u:Result<u32,_> = byte.parse::<u32>();
             let sum = u.unwrap() << i;
             addr_u += sum;
             i+=8;

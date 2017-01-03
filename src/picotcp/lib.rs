@@ -1,9 +1,6 @@
 #![crate_name = "picotcp"]
 
-#![comment = "Rust PicoTCP"]
-#![license = "GPL2"]
 #![crate_type = "lib"]
-#![feature(globs)]
 
 extern crate libc;
 
