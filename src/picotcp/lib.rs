@@ -32,5 +32,9 @@ pub mod pico_ipfilter;
 pub mod pico_mdns;
 pub mod pico_nat;
 pub mod pico_sntp_client;
+pub mod pico_protocol;
+pub mod pico_addressing;
+pub mod pico_queue;
+pub mod pico_tree;
 pub mod socket;
 
